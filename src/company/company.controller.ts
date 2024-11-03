@@ -85,7 +85,7 @@ export class CompanyController {
     }
   }
 
-  @Post('/get/email')
+  @Get('/get/email')
   async getByEmail(@Body('email') email: string, @Res() res: Response) {
     if (!email) {
       return res.status(HttpStatus.BAD_REQUEST).send({ message: 'Email is required' });
