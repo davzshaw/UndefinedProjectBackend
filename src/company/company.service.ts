@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Firestore } from '@google-cloud/firestore';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -52,7 +52,7 @@ export class CompanyService {
   async getByEmail(email: string): Promise<Company> {
     const snapshot = await this.collection.where('email', '==', email).get();
     if (snapshot.empty) {
-      throw new Error('Company not found');
+      throw new NotFoundException('Company not found');
     }
     const doc = snapshot.docs[0];
     return { id: doc.id, ...doc.data() } as Company;
