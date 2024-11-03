@@ -85,8 +85,12 @@ export class CompanyController {
     }
   }
 
-  @Get('/get/email/:email')
-  async getByEmail(@Param('email') email: string, @Res() res: Response) {
+  @Post('/get/email')
+  async getByEmail(@Body('email') email: string, @Res() res: Response) {
+    if (!email) {
+      return res.status(HttpStatus.BAD_REQUEST).send({ message: 'Email is required' });
+    }
+  
     this.logger.log('Get company by email request received for email: ' + email);
     try {
       const company = await this.companyService.getByEmail(email);
@@ -95,7 +99,8 @@ export class CompanyController {
       this.logger.error('Error getting company by email', error.stack);
       return res.status(HttpStatus.NOT_FOUND).send({ message: error.message });
     }
-  }  
+  }
+  
 
   @Put('/:id/groups-users')
   async updateGroupsUsers(@Param('id') id: string, @Body() updateGroupsUsersDto: UpdateGroupsUsersDto, @Res() res: Response) {
