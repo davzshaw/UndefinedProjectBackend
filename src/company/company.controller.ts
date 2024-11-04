@@ -74,6 +74,30 @@ export class CompanyController {
     }
   }
 
+  @Get('/get/email')
+  async getByEmailBody(@Body('email') email: string, @Res() res: Response) {
+    this.logger.log('Get company by email request received for email: ' + email);
+    try {
+      const company = await this.companyService.getByEmail(email);
+      return res.status(HttpStatus.OK).json(company);
+    } catch (error) {
+      this.logger.error('Error getting company by email', error.stack);
+      return res.status(HttpStatus.NOT_FOUND).send(error.message);
+    }
+  }
+
+  @Get('/get/email/:email')
+  async getByEmailParam(@Param('email') email: string, @Res() res: Response) {
+    this.logger.log('Get company by email request received for email: ' + email);
+    try {
+      const company = await this.companyService.getByEmail(email);
+      return res.status(HttpStatus.OK).json(company);
+    } catch (error) {
+      this.logger.error('Error getting company by email', error.stack);
+      return res.status(HttpStatus.NOT_FOUND).send(error.message);
+    }
+  }
+
   @Delete('/:id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     this.logger.log('Delete company request received for ID: ' + id);
