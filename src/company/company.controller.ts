@@ -39,7 +39,7 @@ export class CompanyController {
 
 
   @Get('/get/emaildavid')
-  async getByEmail(@Body() email: string, @Res() res: Response) {
+  async getByEmailDavid(@Body() email: string, @Res() res: Response) {
     this.logger.log('Get company by email request received for email: ' + email);
     try {
       const company = await this.companyService.getByEmail(email);
