@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Put, Delete, Res, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Get, Put, Delete, Res, HttpStatus, Logger, Param } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
@@ -86,6 +86,21 @@ export class AdminController {
       return res.status(HttpStatus.NOT_FOUND).json({ message: error.message });
     }
   }
+
+  @Get('get/email/:email')
+  async findByEmailParam(@Param('email') email: string, @Res() res: Response) {
+    this.logger.log(`Find admin by email request received for email: ${email}`);
+
+    try {
+      const admin = await this.adminService.findByEmail(email);
+      this.logger.log(`Admin found for email: ${email}`);
+      return res.status(HttpStatus.OK).json(admin);
+    } catch (error) {
+      this.logger.warn(`Admin not found for email: ${email}`);
+      return res.status(HttpStatus.NOT_FOUND).json({ message: error.message });
+    }
+  }
+
 
   @Post('/auth')
   async auth(@Body() body: { email: string, password: string }, @Res() res: Response) {
