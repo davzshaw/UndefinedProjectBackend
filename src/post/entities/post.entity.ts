@@ -1,8 +1,6 @@
-import {User} from "../../user/entities/user.entity"
-
 export class Comment {
     content: string; // El contenido del comentario
-    author: User; // Referencia al usuario que hizo el comentario
+    authorEmail: string; // correo del autor del comentario
 
     constructor(partial: Partial<Comment>) {
         Object.assign(this, partial);
