@@ -11,7 +11,7 @@ async function bootstrap() {
     logger: ['log', 'error', 'warn', 'debug', 'verbose'], 
   });
   app.enableCors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://world-ker.vercel.app/"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: false,
   });
