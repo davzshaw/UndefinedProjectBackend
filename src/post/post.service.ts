@@ -44,8 +44,9 @@ export class PostService {
    * @param file - El archivo proporcionado por el cliente
    * @returns La URL pública del archivo en Firebase Storage
    */
+  
   private async uploadMedia(postId: string, file: Express.Multer.File): Promise<string> {
-    const bucket = this.storage.bucket(); 
+    const bucket = this.storage.bucket("startmeup-c0c88.appspot.com"); 
     const fileName = `posts/${postId}/${uuidv4()}`; // Define la ruta en el bucket con un nombre único
     
     const storageFile = bucket.file(fileName);
@@ -111,7 +112,6 @@ export class PostService {
     if (!postDoc.exists) {
       throw new Error('Post not found');
     }
-
     await postRef.delete();
   }
 }
