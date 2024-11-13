@@ -9,7 +9,7 @@ export class Comment {
 
 export class Post {
     id: string; // ID del post
-    userId: string; // ID del usuario que posteo
+    userEmail: string; // Email del usuario que posteo
     content: string; // Contenido 
     mediaUrl: string | null; // URL opcional para la media asociada al post 
     commentCount: number; // Contador de comentarios
